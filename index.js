@@ -410,12 +410,15 @@ function adapter(uri, opts) {
     if (!(remote || (opts && opts.flags && opts.flags.local))) {
       var msg = msgpack.encode([uid, packet, opts]);
       var channel = this.channel;
+      debug('unmodified channel %s', channel);
       if (opts.rooms && opts.rooms.length === 1) {
+        debug('room found in options');
         channel += opts.rooms[0] + '#';
       }
       debug('publishing message to channel %s', channel);
       pub.publish(channel, msg);
     }
+    debug('Sending packet %s', JSON.stringify(packet));
     Adapter.prototype.broadcast.call(this, packet, opts);
   };
 
