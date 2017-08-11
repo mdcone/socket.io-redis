@@ -411,7 +411,7 @@ function adapter(uri, opts) {
       var msg = msgpack.encode([uid, packet, opts]);
       var channel = this.channel;
       debug('unmodified channel %s', channel);
-      if (opts.rooms && opts.rooms.length === 1) {
+      if (opts.rooms && opts.rooms.length === 1 && opts.rooms[0] !== undefined) {
         debug('room found in options');
         channel += opts.rooms[0] + '#';
       }
