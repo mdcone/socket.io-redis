@@ -404,6 +404,9 @@ function adapter(uri, opts) {
 
   Redis.prototype.broadcast = function(packet, opts, remote){
     packet.nsp = this.nsp.name || '/';
+    if (this.nsp.name === undefined) {
+      debug('Assigning undefined namspace to %s', packet.nsp); 
+    }
     if (!(remote || (opts && opts.flags && opts.flags.local))) {
       var msg = msgpack.encode([uid, packet, opts]);
       var channel = this.channel;
